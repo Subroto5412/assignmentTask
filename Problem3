@@ -1,0 +1,54 @@
+3.Write a video player application with ‘Play’, ‘Forward’ , ‘Rewind’ functionalities. Please
+write pseudocode for this program and explain the design pattern you will use to develop
+these three functionalities.
+
+I will be using facade design pattern to build this entire application
+
+  public class VideoPlayer{
+    
+	private final int COUNT = 50;
+	private int index=1;
+	private Boolean isRewind=flase;
+	private Boolean isForwared=flase;
+	
+  public void play()
+  {
+		VideoView videoView =(VideoView)findViewById(R.id.videoView
+		MediaController mediaController= new MediaController(this);
+		mediaController.setAnchorView(videoView);
+		Uri uri = Uri.parse("android.resource://" + getPackageName() + "/raw/video" + index);
+		videoView.setMediaController(mediaController);
+		videoView.setVideoURI(uri);
+		videoView.requestFocus();
+		videoView.start();
+   }
+	
+  public void forward(){
+    isForwared=true;
+    //if rewind is not enabled, only then forward
+    if(!isRewind){}
+	 if(COUNT>index){
+		index++;
+	  }
+	else{
+	 index=1;
+	 }
+	 play();
+	}
+   
+  public void Rewind(){
+    if(isForwared){
+    //if video has been forwared then reduce index by 1 to the same video
+    index--;
+        }
+    isRewind=true;
+	play();
+	isForwared=false;
+	}
+	
+	public void UnRewind(){
+       isRewind=false;
+	}
+	  
+}
+

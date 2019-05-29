@@ -1,0 +1,153 @@
+Problem:2
+Explain the design pattern used in following:
+interface Vehicle {
+int set_num_of_wheels();
+int set_num_of_passengers();
+boolean has_gas();
+}
+a) Explain how can you use the pattern to create car and plane class?
+b) Use a different design pattern for this solution.
+
+
+a) Explain how can you use the pattern to create car and plane class?
+
+I will be going to use factory design pattern for this solution.
+
+For Example-
+
+Class Car implemnts Vehicle{
+	public int set_num_of_wheels(){
+		return 4;
+		}
+	}
+	public int set_num_of_passengers(){
+		return 5;
+		}
+	}
+	
+	public boolean has_gas(){
+		return true;
+		}
+	}
+}
+Class Plane implements Vehicle{
+	public int set_num_of_wheels(){
+		return 3;
+		}
+	}
+	public int set_num_of_passengers(){
+		return 150;
+		}
+	}
+	
+	public boolean has_gas(){
+		return false;
+		}
+	}
+}
+
+b) Use a different design pattern for this solution.
+
+
+I am going to solve this problem using Decorator design pattern
+
+public interface Vehicle {
+    
+    int set_num_of_wheels();
+    int set_num_of_passengers();
+    boolean has_gas();
+    
+}
+
+public class Car implements Vehicle
+{
+        
+    @Override
+    public int set_num_of_wheels() {
+        System.out.println("Number of wheels: 4");
+        return 0;
+    }
+
+    @Override
+    public int set_num_of_passengers() {
+        System.out.println("Number of passengers: 5");
+        return 0;
+    }
+
+    @Override
+    public boolean has_gas() {
+        System.out.println("Has gas: Yes");
+        return true;
+    }
+
+}
+
+public class Plane implements Vehicle
+{
+    
+    @Override
+    public int set_num_of_wheels() {
+        System.out.println("Number of wheels: 3");
+        return 0;
+    }
+
+    @Override
+    public int set_num_of_passengers() {
+        System.out.println("Number of passengers: 150");
+        return 0;
+    }
+
+    @Override
+    public boolean has_gas() {
+        System.out.println("Has gas: No");
+        return true;
+    }
+
+}
+
+public abstract class VehicleDecoretor implements Vehicle{
+    protected Vehicle decoratedVehicle;
+
+   public VehicleDecoretor(Vehicle decoratedCar){
+      this.decoratedVehicle = decoratedCar;
+   }
+   
+   @Override
+    public int set_num_of_wheels() {
+         decoratedVehicle.set_num_of_wheels();
+         return 0;
+    }
+
+    @Override
+    public int set_num_of_passengers() {
+         decoratedVehicle.set_num_of_passengers();
+         return 0;
+    }
+
+    @Override
+    public boolean has_gas() {
+         decoratedVehicle.has_gas();
+         return true;
+    }
+    
+}
+
+public class VehicleDecoretorPattern extends VehicleDecoretor
+{
+    
+    public VehicleDecoretorPattern(Vehicle decoratedVehicle) {
+        super(decoratedVehicle);
+    }
+  
+    @Override
+	public int set_num_of_wheels(){
+		decoratedVehicle.set_num_of_wheels();
+                setVehicle(decoratedVehicle);
+		return 0;
+	}
+	
+   private void setVehicle(Vehicle decoratedCar){
+     System.out.println("wheels Color: Black");
+   }
+    
+}
